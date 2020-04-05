@@ -1,0 +1,138 @@
+Справка команд по Git.
+
+Установка Git на Debian.
+sudo apt install git
+
+Создание конфигов Git.
+ 
+Утилита -  git config правит конфиги.
+ 
+Конфигов 3:
+ 
+/etc/gitconfig  - глобальный конфиг.  (git config --system)
+/.gitconfig -  настройки пользователя (git config --global)
+.git/config  - настройки репозитария. 
+ 
+Приоритетность 3 - 2 -1  (3 самый приоритетный)
+
+Обязательно:  после установки Git — указать ваше имя и адрес электронной почты. (инфа нужна коммитам)
+ 
+Пример создания пользовательского конфига:
+  git config --global user.name "Ilya Rud"
+  git config --global user.email me@rudilya.ru
+ 
+Чтобы  Git использовал твой редактор:
+
+git config --global core.editor nano
+
+5. Какие конфиги созданы:
+
+		git config --list --show-origin
+
+Найти текущие репозитории:
+ 
+find / -name ".git"
+
+Удалить текущие репозитарии:
+rm -fr .git	
+
+Создание репозитория.
+ 
+cd ~  - переходим в домашний каталог.
+mkdir repo   - создает каталог Repo
+cd repo/  - переходим в каталог
+git init  - создает в текущей директории  поддиректорию с именем .git, где будет структура репоизитария.
+
+
+Текуще состояние файлов:
+ 
+git status
+
+
+Если рабочий каталог чистый, то получаете:
+ 
+On branch master
+Your branch is up-to-date with 'origin/master'.
+nothing to commit, working directory clean
+
+Создаем новый файл в каталоге:
+
+	echo 'My Project' > README
+	git status
+	
+	Получаем новый файл как Untracked files
+	
+Т.е Git его не отслеживает, т.к мы об этом не просили.
+
+Добавляем отслеживание файла:
+ 
+ git add README
+ git status
+Получаем  файл как Changes to be committed (попадет в следующий commit)
+ 
+ git status -s   
+ 
+Новые неотслеживаемые файлы помечены ??
+добавленные в отслеживаемые помечены A
+отредактированные файлы помечены M 
+
+
+
+Коммит изменений.
+ 
+git commit  - откроется редактор
+ 
+git commit -m "Story 182: Fix benchmarks for speed"   -коммит вручную
+
+
+История коммитов:
+
+	 git log
+
+
+Откатить Файл к Предыдущему Коммиту
+
+git checkout <хэш_коммита> -- <файл>
+
+Подключить удаленный репозитарий:
+
+git remote add origin https://github.com/irudrus/lesson1.git - Добавление удалённых репозиториев
+
+git clone https://github.com/irudrus/lesson1.git - настраивает вашу локальную ветку master на отслеживание удалённой ветки master на сервере.
+
+git remote -v  - просмотреть список настроенных удалённых репозиториев.
+
+git push origin master  - Отправка изменений в удаленный репозиторий
+git pull origin master - получить изменения из удалённой ветки
+
+git remote show origin  - Инфа об удаленном репозитарии
+
+
+Установка Gitlab
+
+https://about.gitlab.com/install/
+ 
+ 
+sudo apt-get update    -- обновление системы
+sudo apt-get install -y curl openssh-server ca-certificates  -установка пререквизитов
+sudo apt-get install -y postfix – установка postfix
+ 
+ curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash -устновка cURL
+ 
+ 
+Установка gitlab-ce:
+
+sudo EXTERNAL_URL="http://irud-server.course4it.com" apt-get install gitlab-ce
+ 
+
+Потом недо зайти по URL.  Задатит пароль рута, зайти под рутом, создать репозиторий.
+
+ 
+Подключение репозитория в Git
+
+git remote add origin http://irud-server.course4it.com/root/testproject.git
+ 
+
+
+
+https://www.educative.io/edpresso/the-fatal-refusing-to-merge-unrelated-histories-git-error
